@@ -2,12 +2,13 @@
 const search = document.getElementById("search");
 const result = document.querySelector('.result');
 
+
 const pokemonData = async (api, text) => {
     try {
         
         const response = await fetch(api);
         
-        if(!response.ok) {
+        if(!response.ok || !text || text <= 0 || text >= 152) {
             throw new Error('Pokemon not found')
         }
 
@@ -18,18 +19,29 @@ const pokemonData = async (api, text) => {
         const typeName = types[0].type.name;   
         const iconImg = sprites.front_default;     
 
+        //<img src="${iconImg}" alt="${name}"> 
+
         setTimeout(() => {
             result.innerHTML = `
-            <h1>${name}</h1>
-            <img src="${iconImg}" alt="${name}"> 
-            <h3>${id}</h3>
-            <h3>${typeName}</h3>
+            <div id="pokemon-card" class="container mt-5">
+            
+            <div class="row">
+            <h1 id="pokemon-name">${name}</h1>
+            <h3>#${id}</h3>
+            </div>
+
+            <div class="row">
+            <img src="${front_default}" id="card-img" alt="${name}"> 
+            </div>
+
+            <h4 id="pokemon-type">Type: ${typeName}</h4>
             <h5>Height: ${height}"</h5>
             <h5>Weight: ${weight}lbs</h5>
-            <img src="${front_default}" alt="${name}"> 
+            
+            </div>
             
             `;
-        }, 1000)
+        }, 1500)
 
     } catch (error) {
         console.log(error)
@@ -39,7 +51,7 @@ const pokemonData = async (api, text) => {
             <h1>Pokemon not found</h1>
             
             `;
-        }, 1000)
+        }, 1500)
 
 
     }

@@ -1,0 +1,28 @@
+
+#hero-img {
+    height: 25%;
+    width: 35%;
+}
+
+#card-img {
+    border: solid 3px rgb(218, 205, 31);
+    height: 16rem;
+    width: 16rem;
+    margin: 8%;
+
+}
+
+#pokemon-card {
+    border: solid 3px rgb(218, 205, 32);
+    font-family: Arial, Helvetica, sans-serif;
+    width: 22rem;
+    height: 34rem;
+}
+
+#pokemon-name {
+    text-transform: capitalize;
+}
+
+#pokemon-type {
+    text-transform: capitalize;
+}
