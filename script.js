@@ -8,6 +8,8 @@ const pokemonData = async (api, text) => {
         
         const response = await fetch(api);
         
+        // Set input to only recognize the orignal 151 pokemon. The input says "1 - 150",
+        // but number 151, Mew, can also be searched. Making it secret like on the orginal games
         if(!response.ok || !text || text <= 0 || text >= 152) {
             throw new Error('Pokemon not found')
         }
@@ -15,9 +17,12 @@ const pokemonData = async (api, text) => {
         const data = await response.json();
         console.log(data)
         const {id, name, sprites: {other: {dream_world: {front_default}}}, height, weight, types, sprites}= data;
+        
 
-        const typeName = types[0].type.name;   
-        const iconImg = sprites.front_default;     
+        // Seperate code calling files from the api. Had to use these to prevent issues with 
+        // using "${name}" and "${front_defualt}" multiple times. 
+        const typeName = types[0].type.name;     
+        const iconImg = sprites.front_default;   // for small round image of pokemon
 
          
 
@@ -37,7 +42,7 @@ const pokemonData = async (api, text) => {
             <div class="row">
             <div class="column col-6">
             <h4 id="pokemon-type">Type: ${typeName}</h4>
-            <h5>Height: ${height}"</h5>
+            <h5>Height: ${height}"</h5> 
             <h5>Weight: ${weight}lbs</h5>
             </div>
             <div class="column col-6">
@@ -86,7 +91,6 @@ const pokemonData = async (api, text) => {
 async function fetchPokemon() {
     try {
         let text = search.value;
-        //const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${text}`);
         const api = `https://pokeapi.co/api/v2/pokemon/${text}`;
         pokemonData(api, text)
     } catch (error) {
